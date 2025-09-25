@@ -14,9 +14,10 @@ Asi se ve la pagina principal
 
 Esto es el formulario para agregar un registro de la visita
 ![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/5ceb5b67fc0704c0388829b712f4c4b62c5f4fff/images/agregar.PNG)
+![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/c8dd6a5aa35efc7a42abc1cc320b38075f83c546/images/creado.PNG)
 
 Ver los detalles de un registro
-![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/5ceb5b67fc0704c0388829b712f4c4b62c5f4fff/images/detalles.PNG)
+![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/c8dd6a5aa35efc7a42abc1cc320b38075f83c546/images/detalles.PNG)
 
 Editar un registro
 ![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/5ceb5b67fc0704c0388829b712f4c4b62c5f4fff/images/editar.PNG)
