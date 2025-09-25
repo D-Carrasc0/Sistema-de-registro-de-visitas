@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # ruta para acceder al ponel de administrador
     path('admin/', admin.site.urls),
+    # la ruta raiz del proyecto 
     path('', include('registros.urls')),
 ]

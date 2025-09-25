@@ -6,34 +6,37 @@
 <h2 class="text-2xl font-bold mb-4">Lista de registros</h2>
 <a href="{% url 'nuevo_registro' %}" class="bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block hover:scale-105 transiiton-all ease-in">Nuevo registro</a>
 
-<table class="min-w-full bg-white text-center">
-    <thead>
-        <tr>
-            <th class="py-2 px-4 border-b">Nombre</th>
-            <th class="py-2 px-4 border-b">RUT</th>
-            <th class="py-2 px-4 border-b">Motivo</th>
-            <th class="py-2 px-4 border-b">Hora de Entrada</th>
-            <th class="py-2 px-4 border-b">Hora de Salida</th>
-            <th class="py-2 px-4 border-b">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for registro in registros %}
-        <tr>
-            <td class="py-2 px-4 border-b">{{ registro.nombre }}</td>
-            <td class="py-2 px-4 border-b">{{ registro.rut }}</td>
-            <td class="py-2 px-4 border-b">{{ registro.motivo }}</td>
-            <td class="py-2 px-4 border-b">{{ registro.horaentrada }}</td>
-            <td class="py-2 px-4 border-b">{{ registro.horasalida }}</td>
-            <td>
-                <menu class="flex flex-row gap-2 items-center justify-center text-white">
-                    <a href="{% url 'detalle_registro' registro.id %}" class="bg-blue-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Ver</a>
-                    <a href="{% url 'editar_registro' registro.id %}" class="bg-yellow-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Editar</a>
-                    <a href="{% url 'eliminar_registro' registro.id %}" class="bg-red-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Eliminar</a>
-                </menu>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="overflow-auto rounded-lg shadow">
+    <table class="w-full bg-white text-center">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b w-15 text-left">Nombre</th>
+                <th class="py-2 px-4 border-b w-15 text-left">RUT</th>
+                <th class="py-2 px-4 border-b text-left">Motivo</th>
+                <th class="py-2 px-4 border-b w-20 text-left">Hora de Entrada</th>
+                <th class="py-2 px-4 border-b w-20 text-left">Hora de Salida</th>
+                <th class="py-2 px-4 border-b w-32">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in registros %}
+            <tr>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.nombre }}</td>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.rut }}</td>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.motivo }}</td>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.horaentrada }}</td>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.horasalida }}</td>
+                <td class="whitespace-nowrap">
+                    <menu class="flex flex-row gap-2 items-center justify-center text-white">
+                        <a href="{% url 'detalle_registro' registro.id %}" class="bg-blue-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Ver</a>
+                        <a href="{% url 'editar_registro' registro.id %}" class="bg-yellow-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Editar</a>
+                        <a href="{% url 'eliminar_registro' registro.id %}" class="bg-red-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Eliminar</a>
+                    </menu>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}
