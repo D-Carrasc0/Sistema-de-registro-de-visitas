@@ -20,12 +20,15 @@
         </thead>
         <tbody>
             {% for registro in registros %}
+            <!-- Para poder mostrar la fecha en idioma espanol -->
+            {% load i18n %}
+            {% language "es" %}
             <tr>
                 <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.nombre }}</td>
                 <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.rut }}</td>
                 <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.motivo }}</td>
-                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.horaentrada }}</td>
-                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.horasalida }}</td>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.horaentrada|date:"d/M/Y, h:i" }}</td>
+                <td class="py-2 px-4 border-b whitespace-nowrap text-left">{{ registro.horasalida |date:"d/M/Y, h:i" }}</td>
                 <td class="whitespace-nowrap">
                     <menu class="flex flex-row gap-2 items-center justify-center text-white">
                         <a href="{% url 'detalle_registro' registro.id %}" class="bg-blue-500 hover:scale-105 transition-all ease-in px-2 py-1 rounded">Ver</a>
@@ -34,6 +37,7 @@
                     </menu>
                 </td>
             </tr>
+            {% endlanguage %}
             {% endfor %}
         </tbody>
     </table>

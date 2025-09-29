@@ -19,9 +19,17 @@ def nuevo_registro(request):
         form = RegistroForm(request.POST)
         # si los datos son validos
         if form.is_valid():
-            # se guiarda el objeto en la base de datos
-            form.save()
-            return redirect('lista_registros')
+            # con cleaned_data accedemos a los datos limpios despues de la validacion estos vienen en formato de diccionario
+            fecha_entrada = form.cleaned_data['horaentrada']
+            fecha_salida = form.cleaned_data['horasalida']
+            # si existe la fecha de entrada y salida ademas de si la fecha de entrada es mayor o igual a la de salida
+            if fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
+                # el formulario desplegara un error en el campo horasalida con el mensaje
+                form.add_error('horasalida', 'la hora de salida debe ser despues de la entrada')
+            # se guarda el objeto en la base de datos
+            else:
+                form.save()
+                return redirect('lista_registros')
     else:
         form = RegistroForm()
     return render(request, 'registros/nuevo_registro.html', {'form': form})
@@ -33,9 +41,17 @@ def editar_registro(request, pk):
         # intenta guardar los cambios 
         form = RegistroForm(request.POST, instance=registro)
         if form.is_valid():
+            # con cleaned_data accedemos a los datos limpios despues de la validacion estos vienen en formato de diccionario
+            fecha_entrada = form.cleaned_data['horaentrada']
+            fecha_salida = form.cleaned_data['horasalida']
+            # si existe la fecha de entrada y salida ademas de si la fecha de entrada es mayor o igual a la de salida
+            if fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
+                # el formulario desplegara un error en el campo horasalida con el mensaje
+                form.add_error('horasalida', 'la hora de salida debe ser despues de la entrada')
             # lo guarda y redirige a detalle registro
-            form.save()
-            return redirect('detalle_registro', pk=registro.pk)
+            else:
+                form.save()
+                return redirect('detalle_registro', pk=registro.pk)
     else:
         form = RegistroForm(instance=registro)
     return render(request, 'registros/editar_registro.html', {'form': form})    

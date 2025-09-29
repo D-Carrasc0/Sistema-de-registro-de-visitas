@@ -4,11 +4,15 @@
 {% block content %}
 <h2 class="text-2xl font-bold mb-4">Detalle del registro</h2>
 <div class="bg-white p-4 rounded shadow">
+    <!-- Para poder mostrar la fecha en idioma espanol -->
+    {% load i18n %}
+    {% language "es" %}
     <p><strong>Nombre:</strong> {{ registro.nombre }}</p>
     <p><strong>RUT:</strong> {{ registro.rut }}</p>
     <p><strong>Motivo:</strong> {{ registro.motivo }}</p>
     <p><strong>Hora de Entrada:</strong> {{ registro.horaentrada }}</p>
     <p><strong>Hora de Salida:</strong> {{ registro.horasalida }}</p>
+    {% endlanguage %}
 </div>
 <a href="{% url 'lista_registros' %}" class="hover:scale-105 transition-all ease-in mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">Volver a la Lista de Registros</a>
 {% endblock %}  
