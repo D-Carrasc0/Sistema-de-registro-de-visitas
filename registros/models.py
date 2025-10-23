@@ -9,6 +9,7 @@ class Registro(models.Model):
     motivo = models.TextField()
     horaentrada = models.DateTimeField()
     horasalida = models.DateTimeField(null=True, blank=True)
+    # estado = models.BooleanField(default=False) 
 
     def __str__(self):
         return f"{self.nombre} - {self.rut}"
