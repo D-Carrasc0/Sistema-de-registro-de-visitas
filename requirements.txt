@@ -2,3 +2,4 @@ django
 gunicorn
 python-dotenv
 psycopg2
+whitenoise

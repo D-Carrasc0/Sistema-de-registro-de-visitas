@@ -16,7 +16,7 @@ def marcar_salidas(modeladmin, request, queryset):
 
 @admin.register(Registro) 
 class ProductoAdmin(admin.ModelAdmin): 
-    list_display = ("nombre", "rut", "motivo", "horaentrada","horasalida") 
+    list_display = ("nombre", "rut", "motivo", "horaentrada","horasalida", "estado_finalizado") 
     search_fields = ("nombre", "rut")  # texto rápido 
     list_filter = ("horaentrada", "horasalida")           # filtros laterales 
     ordering = ("nombre",) 

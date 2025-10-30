@@ -5,7 +5,7 @@ class RegistroForm(forms.ModelForm):
     class Meta:
         model = Registro
         # campos del formulario
-        fields = ['nombre', 'rut', 'motivo', 'horaentrada', 'horasalida']
+        fields = ['nombre', 'rut', 'motivo', 'horaentrada', 'horasalida', 'estado_finalizado']
         # configuracion de widgets para definir como se muestran los inputs
         widgets = {
             # en el campo rut se coloco un placeholder y un pattern (patron) para validar el formato
