@@ -9,7 +9,7 @@ def marcar_salidas(modeladmin, request, queryset):
     hora_actual = timezone.now()
 
     # Actualizar las visitas seleccionadas
-    updated = queryset.update(estado=True, horasalida=hora_actual)
+    updated = queryset.update(estado_finalizado=True, horasalida=hora_actual)
 
     # Mostrar mensaje de confirmación
     modeladmin.message_user(request, f"{updated} visitas han sido marcadas como completas.")
