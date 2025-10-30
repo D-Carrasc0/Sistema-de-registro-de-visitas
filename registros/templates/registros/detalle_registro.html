@@ -12,6 +12,13 @@
     <p><strong>Motivo:</strong> {{ registro.motivo }}</p>
     <p><strong>Hora de Entrada:</strong> {{ registro.horaentrada }}</p>
     <p><strong>Hora de Salida:</strong> {{ registro.horasalida }}</p>
+    <p><strong>Estado de la visita :</strong> 
+        {% if registro.estado_finalizado %}
+            <span>Finalizado</span>
+        {% else %}
+            <span>Incompleto</span>
+        {% endif %}</p>
+    
     {% endlanguage %}
 </div>
 <a href="{% url 'lista_registros' %}" class="hover:scale-105 transition-all ease-in mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">Volver a la Lista de Registros</a>

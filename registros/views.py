@@ -28,7 +28,7 @@ def nuevo_registro(request):
             if fecha_entrada and estado_finalizado and not fecha_salida and estado_finalizado == True:
                 form.add_error('estado_finalizado', 'para marcar estado finalizado debe estar la fecha de entrada y salida')
             # si existe la fecha de entrada y salida ademas de si la fecha de entrada es mayor o igual a la de salida
-            if fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
+            elif fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
                 # el formulario desplegara un error en el campo horasalida con el mensaje
                 form.add_error('horasalida', 'la hora de salida debe ser despues de la entrada')
             # se guarda el objeto en la base de datos
@@ -49,8 +49,13 @@ def editar_registro(request, pk):
             # con cleaned_data accedemos a los datos limpios despues de la validacion estos vienen en formato de diccionario
             fecha_entrada = form.cleaned_data['horaentrada']
             fecha_salida = form.cleaned_data['horasalida']
+            estado_finalizado = form.cleaned_data['estado_finalizado']
+
+            # si existe fecha entrada y no de salida y se marca la visita como finalizada da un error
+            if fecha_entrada and estado_finalizado and not fecha_salida and estado_finalizado == True:
+                form.add_error('estado_finalizado', 'para marcar estado finalizado debe estar la fecha de entrada y salida')
             # si existe la fecha de entrada y salida ademas de si la fecha de entrada es mayor o igual a la de salida
-            if fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
+            elif fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
                 # el formulario desplegara un error en el campo horasalida con el mensaje
                 form.add_error('horasalida', 'la hora de salida debe ser despues de la entrada')
             # lo guarda y redirige a detalle registro
