@@ -56,6 +56,8 @@ def editar_registro(request, pk):
             # si existe fecha entrada y no de salida y se marca la visita como finalizada da un error
             if fecha_entrada and estado_finalizado and not fecha_salida and estado_finalizado == True:
                 form.add_error('estado_finalizado', 'para marcar estado finalizado debe estar la fecha de entrada y salida')
+            elif fecha_entrada and fecha_salida and estado_finalizado == False:
+                form.add_error('estado_finalizado', 'Si finalizo la visita marque la casilla')
             # si existe la fecha de entrada y salida ademas de si la fecha de entrada es mayor o igual a la de salida
             elif fecha_entrada and fecha_salida and fecha_entrada >= fecha_salida:
                 # el formulario desplegara un error en el campo horasalida con el mensaje
