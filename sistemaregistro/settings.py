@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-c8cf2fw-$ndtga4!is!iy%8zy8-60(k01x-g@b+482pc3ja!%7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".onrender.com"]
+ALLOWED_HOSTS = [".onrender.com", "127.0.0.1"]
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registros', # se agrega registro a aplicaciones intaladas
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -80,15 +81,22 @@ WSGI_APPLICATION = 'sistemaregistro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         # Se agregan los datos de la bd de supabase utilizando os y obteniendolas (getenv) del archivo .env 
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('dbname'),
+#         'USER': os.getenv('user'),
+#         'PASSWORD': os.getenv('password'),
+#         'HOST': os.getenv('host'),
+#         'PORT': os.getenv('port'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        # Se agregan los datos de la bd de supabase utilizando os y obteniendolas (getenv) del archivo .env 
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('dbname'),
-        'USER': os.getenv('user'),
-        'PASSWORD': os.getenv('password'),
-        'HOST': os.getenv('host'),
-        'PORT': os.getenv('port'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
