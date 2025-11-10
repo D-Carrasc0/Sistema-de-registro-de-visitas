@@ -5,7 +5,7 @@ from .forms import RegistroForm
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
 
-from .serializers import GroupSerializer, UserSerializer
+from .serializers import GroupSerializer, UserSerializer, RegistroSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -24,7 +24,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all().order_by("name")
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
+
+class RegistroViewSet(viewsets.ModelViewSet):
+
+    queryset = Registro.objects.all().order_by('nombre')
+    serializer_class = RegistroSerializer
+    permission_classes = [permissions.IsAuthenticated]  
+      
 # Create your views here.
 def lista_registros(request):
     # obtiene todos los objetos del modelo registro de la base de datos

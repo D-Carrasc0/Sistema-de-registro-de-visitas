@@ -1,6 +1,11 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
+from .models import Registro
 
+class RegistroSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Registro
+        fields = ['url', 'nombre', 'rut', 'motivo', 'horaentrada', 'horasalida', 'estado_finalizado']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

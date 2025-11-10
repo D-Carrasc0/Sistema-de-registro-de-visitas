@@ -6,13 +6,14 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"groups", views.GroupViewSet)
+router.register(r"registros", views.RegistroViewSet)
 
 # Estas son las urls(rutas) del sitio web
 urlpatterns = [
-    # path("", include(router.urls)),
-    # path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api/", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     # esta es la raiz la cual muestra la lista de registros
-    path('', views.lista_registros, name='lista_registros'),
+    path('registros/', views.lista_registros, name='lista_registros'),
     # esta es para agregar un nuevo registro
     path('registros/nuevo/', views.nuevo_registro, name='nuevo_registro'),
     # esta para ver el detalle de un registro
