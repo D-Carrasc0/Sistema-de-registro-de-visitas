@@ -14,6 +14,8 @@ from pathlib import Path
 # se importa load_dotenv para cargar las variables de entorno
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
+
 
 # se cargan las variables de entorno del archivo .env
 load_dotenv()
@@ -46,6 +48,24 @@ INSTALLED_APPS = [
     'registros', # se agrega registro a aplicaciones intaladas
     'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    # Opcional: forzar permisos por defecto (si quieres que todas las APIs requieran login)
+    # "DEFAULT_PERMISSION_CLASSES": (
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

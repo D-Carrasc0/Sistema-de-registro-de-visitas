@@ -4,6 +4,8 @@ from .forms import RegistroForm
 
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
+from django.contrib.auth.decorators import login_required
+
 
 from .serializers import GroupSerializer, UserSerializer, RegistroSerializer
 
@@ -32,6 +34,7 @@ class RegistroViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]  
       
 # Create your views here.
+@login_required
 def lista_registros(request):
     # obtiene todos los objetos del modelo registro de la base de datos
     registros = Registro.objects.all()
