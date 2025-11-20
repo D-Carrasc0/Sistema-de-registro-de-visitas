@@ -36,7 +36,7 @@ DEBUG = True
 ALLOWED_HOSTS = [".onrender.com", "127.0.0.1", 'localhost']
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
+    "http://dcarrasco.me",
     "http://127.0.0.1:9000",
 ]
 
