@@ -34,7 +34,6 @@ class RegistroViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]  
       
 # Create your views here.
-@login_required
 def lista_registros(request):
     # obtiene todos los objetos del modelo registro de la base de datos
     registros = Registro.objects.all()
