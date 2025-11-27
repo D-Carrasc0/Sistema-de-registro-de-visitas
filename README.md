@@ -27,3 +27,11 @@ Editar un registro
 Eliminar un registro
 ![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/5ceb5b67fc0704c0388829b712f4c4b62c5f4fff/images/eliminar.PNG)
 ![image URL](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/5ceb5b67fc0704c0388829b712f4c4b62c5f4fff/images/eliminado.PNG)
+
+
+Se agrego el uso de Django REST Framework 
+![image alt](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/81174b1586f93a1133ba21d4fa0d32a593f00833/images/django-rest-framework.png)
+
+![image alt](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/81174b1586f93a1133ba21d4fa0d32a593f00833/images/jwt.png)
+
+![image alt](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/81174b1586f93a1133ba21d4fa0d32a593f00833/images/cors.jpg)
