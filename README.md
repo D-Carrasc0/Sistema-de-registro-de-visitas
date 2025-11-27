@@ -30,6 +30,7 @@ Eliminar un registro
 
 
 Se agrego el uso de Django REST Framework 
+
 ![image alt](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/81174b1586f93a1133ba21d4fa0d32a593f00833/images/django-rest-framework.png)
 
 ![image alt](https://github.com/D-Carrasc0/Sistema-de-registro-de-visitas/blob/81174b1586f93a1133ba21d4fa0d32a593f00833/images/jwt.png)
