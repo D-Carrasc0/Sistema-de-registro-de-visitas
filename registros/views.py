@@ -4,7 +4,15 @@ from .forms import RegistroForm
 
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
-from django.contrib.auth.decorators import login_required
+
+from datetime import timedelta
+
+from django.db.models import Count, Q
+from django.db.models.functions import TruncDate
+from django.utils.timezone import localdate
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 
 from .serializers import GroupSerializer, UserSerializer, RegistroSerializer
@@ -32,7 +40,50 @@ class RegistroViewSet(viewsets.ModelViewSet):
     queryset = Registro.objects.all().order_by('nombre')
     serializer_class = RegistroSerializer
     permission_classes = [permissions.IsAuthenticated]  
-      
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def dashboard_stats(request):
+    hoy = localdate()
+    hace_7_dias = hoy - timedelta(days=6)
+
+    # Métricas generales
+    total_visitas = Registro.objects.count()
+    visitas_hoy = Registro.objects.filter(horaentrada__date=hoy).count()
+    visitas_activas = Registro.objects.filter(estado_finalizado=False).count()
+
+    # Visitas por día (últimos 7 días)
+    visitas_por_dia_qs = (
+        Registro.objects
+        .filter(horaentrada__date__gte=hace_7_dias)
+        .annotate(dia=TruncDate("horaentrada"))
+        .values("dia")
+        .annotate(total=Count("id"))
+        .order_by("dia")
+    )
+
+    visitas_por_dia = [
+        {
+            "dia": v["dia"].strftime("%Y-%m-%d"),
+            "total": v["total"],
+        }
+        for v in visitas_por_dia_qs
+    ]
+
+    # Visitas finalizadas vs incompletas
+    estados = Registro.objects.aggregate(
+        finalizadas=Count("id", filter=Q(estado_finalizado=True)),
+        incompletas=Count("id", filter=Q(estado_finalizado=False)),
+    )
+
+    return Response({
+        "total_visitas": total_visitas,
+        "visitas_hoy": visitas_hoy,
+        "visitas_activas": visitas_activas,
+        "visitas_por_dia": visitas_por_dia,
+        "estados": estados,
+    })
+
 # Create your views here.
 def lista_registros(request):
     # obtiene todos los objetos del modelo registro de la base de datos

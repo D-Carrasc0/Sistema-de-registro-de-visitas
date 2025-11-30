@@ -18,6 +18,7 @@ urlpatterns = [
     # Rutas API Rest
     path("api/", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api/dashboard/", views.dashboard_stats, name="dashboard-stats"),
 
 
     # esta es la raiz la cual muestra la lista de registros
