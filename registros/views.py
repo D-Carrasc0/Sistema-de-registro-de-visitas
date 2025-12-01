@@ -21,9 +21,10 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-
+    # Todos los usuarios ordenador por fecha de union decendente
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
+    # Solo usuarios autenticados pueden acceder
     permission_classes = [permissions.IsAuthenticated]
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -31,51 +32,72 @@ class GroupViewSet(viewsets.ModelViewSet):
     API endpoint that allows groups to be viewed or edited.
     """
 
+    # Todos los grupos ordenados alfabeticamentes
     queryset = Group.objects.all().order_by("name")
     serializer_class = GroupSerializer
+    # Solo usuarios autenticados pueden acceder
     permission_classes = [permissions.IsAuthenticated]
 
 class RegistroViewSet(viewsets.ModelViewSet):
 
+    # Todos los registros ordenados por nombre
     queryset = Registro.objects.all().order_by('nombre')
+    # Serializador
     serializer_class = RegistroSerializer
+    # Solo usuarios autenticados pueden acceder
     permission_classes = [permissions.IsAuthenticated]  
 
+# Indica que la vista solo puede recibir peticiones GET
 @api_view(["GET"])
+# Requiere que el usuario este autenticado
 @permission_classes([IsAuthenticated])
 def dashboard_stats(request):
+    # Fecha actual (sin hora)
     hoy = localdate()
+    # Calcula la fecha de hace 6 dias para tener un rango de 7 junto a hoy
     hace_7_dias = hoy - timedelta(days=6)
 
     # Métricas generales
+    # Total de visitas (registros existentes)
     total_visitas = Registro.objects.count()
+    # Registros cuya hora de entrada es hoy
     visitas_hoy = Registro.objects.filter(horaentrada__date=hoy).count()
+    # Registros donde el estado_finalizado es false (no se ha terminado la visita)
     visitas_activas = Registro.objects.filter(estado_finalizado=False).count()
 
     # Visitas por día (últimos 7 días)
     visitas_por_dia_qs = (
         Registro.objects
+        # Filtra los registros que su hora_entrada este en los ultimos 7 dias
         .filter(horaentrada__date__gte=hace_7_dias)
+        # Trunca horaentrada a solo fecha para agrupar por dia
         .annotate(dia=TruncDate("horaentrada"))
+        # Selecciona solo el campo dia
         .values("dia")
+        # Cuenta cuantos registros hay por dia
         .annotate(total=Count("id"))
+        # Ordena cronologicamente por dia
         .order_by("dia")
     )
 
+    # Convierte la query en un diccionario
     visitas_por_dia = [
         {
-            "dia": v["dia"].strftime("%Y-%m-%d"),
+            #Convierte la fecha en un string con formato "YYYY-MM-DD"
+            "dia": v["dia"].strftime("%Y-%m-%d"), 
             "total": v["total"],
         }
         for v in visitas_por_dia_qs
     ]
 
     # Visitas finalizadas vs incompletas
+    # Calcula cuantas visitas han sido finalizados con cuales no usando filtros en count
     estados = Registro.objects.aggregate(
         finalizadas=Count("id", filter=Q(estado_finalizado=True)),
         incompletas=Count("id", filter=Q(estado_finalizado=False)),
     )
 
+    # Retorna los datos en formato JSON
     return Response({
         "total_visitas": total_visitas,
         "visitas_hoy": visitas_hoy,
@@ -84,7 +106,8 @@ def dashboard_stats(request):
         "estados": estados,
     })
 
-# Create your views here.
+# Vistas 
+
 def lista_registros(request):
     # obtiene todos los objetos del modelo registro de la base de datos
     registros = Registro.objects.all()

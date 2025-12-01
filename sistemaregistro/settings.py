@@ -14,6 +14,7 @@ from pathlib import Path
 # se importa load_dotenv para cargar las variables de entorno
 from dotenv import load_dotenv
 import os
+# Se importa para definir la duracion de los tokens
 from datetime import timedelta
 
 
@@ -35,6 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [".onrender.com", "127.0.0.1"]
 
+# Origenes permitidos para CORS (dominios que pueden consumir la API)
 CORS_ALLOWED_ORIGINS = [
     "http://dcarrasco.me",
     "https://dcarrasco.me",
@@ -51,11 +53,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registros', # se agrega registro a aplicaciones intaladas
-    'rest_framework',
-    'corsheaders',
+    'rest_framework', #Django rest framework 
+    'corsheaders', #Aplicacion para manejar cors
 ]
 
+# Configuracion global de django rest framework
 REST_FRAMEWORK = {
+    # Clase de autenticacion por defecto
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
@@ -63,13 +67,19 @@ REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": (
     #     "rest_framework.permissions.IsAuthenticated",
     # ),
+    # Clase de paginacion por defecto 
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # Tamaño de paginas por defecto
     "PAGE_SIZE": 10,
 }
 
+# Configuracion especifica de Simple JWT
 SIMPLE_JWT = {
+    # Tiempo de vida del token (15 minutos)
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    # Tiempo de vida del token de refresco de un dia
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    # El header sera Authorization: Beares <y aqui iria el token>
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 

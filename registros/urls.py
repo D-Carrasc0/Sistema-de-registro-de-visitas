@@ -1,12 +1,18 @@
 from django.urls import path, include
 from . import views
 
+# Importa el enrutador por defecto de rest_framework
 from rest_framework import routers
+# Importa las vistas para obtener y renovar tokens
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+# Crea un router por defecto que generará automáticamente las rutas para los viewSets
 router = routers.DefaultRouter()
+# Se registra el viewSet de users bajo la ruta /api/users/
 router.register(r"users", views.UserViewSet)
+# Se registra el viewSet de groups bajo la ruta /api/groups/
 router.register(r"groups", views.GroupViewSet)
+# Se registra el ViewSet de usuarios bajo la ruta /api/registros/
 router.register(r"registros", views.RegistroViewSet)
 
 # Estas son las urls(rutas) del sitio web
